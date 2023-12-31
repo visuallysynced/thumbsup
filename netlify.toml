@@ -5,7 +5,7 @@
     force = true
     
 [[redirects]]
-    from = "/git"
-    to = "https://github.com/visuallysynced/thumbsup/"
-    status = 200
+    from = "/git/*"
+    to = "https://visuallysynced.xyz/gh/blog.visuallysynced.xyz/:splat"
+    status = 301
     force = true
