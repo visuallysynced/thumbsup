@@ -1,0 +1,11 @@
+[[redirects]]
+    from = "/favicon.ico"
+    to = "https://visuallysynced.xyz/favicon.ico"
+    status = 200
+    force = true
+    
+[[redirects]]
+    from = "/git"
+    to = "https://github.com/visuallysynced/thumbsup/"
+    status = 200
+    force = true
