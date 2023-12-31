@@ -6,6 +6,6 @@
     
 [[redirects]]
     from = "/git/*"
-    to = "https://visuallysynced.xyz/gh/blog.visuallysynced.xyz/:splat"
+    to = "https://visuallysynced.xyz/gh/thumbsup/:splat"
     status = 301
     force = true
