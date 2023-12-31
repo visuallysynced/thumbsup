@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VS | 👍 </title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="thumbsup-background">
+    <!-- Emojis in the background -->
+  </div>
+
+  <div class="switch" onclick="toggleLike()">
+    <div class="thumbsup">👍</div>
+  </div>
+
+  <script>
+    let liked = false;
+    let emojiBackground = null;
+
+    function toggleLike() {
+      const likeSwitch = document.querySelector('.switch');
+      likeSwitch.classList.toggle('thumbeduped');
+
+      liked = !liked;
+
+      if (liked) {
+        createLikeEmojis();
+      } else {
+        removeLikeEmojis();
+      }
+    }
+
+    function createLikeEmojis() {
+      const likeBackground = document.createElement('div');
+      likeBackground.classList.add('thumbsup-background');
+      document.body.appendChild(likeBackground);
+      setTimeout(() => {
+        likeBackground.classList.add('show');
+      }, 10);
+
+      const emojiSize = 40; 
+      const padding = 20; 
+
+      const emojiCount = 160;
+      const maxAttempts = 100;
+
+      for (let i = 0; i < emojiCount; i++) {
+        let left, top;
+        let attempts = 0;
+
+        do {
+          left = Math.random() * (window.innerWidth - emojiSize - padding);
+          top = Math.random() * (window.innerHeight - emojiSize - padding);
+
+          let collision = false;
+          for (const existingEmoji of likeBackground.children) {
+            const rect1 = {
+              left,
+              top,
+              right: left + emojiSize,
+              bottom: top + emojiSize,
+            };
+            const rect2 = existingEmoji.getBoundingClientRect();
+
+            if (
+              rect1.left < rect2.right &&
+              rect1.right > rect2.left &&
+              rect1.top < rect2.bottom &&
+              rect1.bottom > rect2.top
+            ) {
+              collision = true;
+              break;
+            }
+          }
+
+          attempts++;
+          if (!collision) break;
+        } while (attempts < maxAttempts);
+
+        if (attempts < maxAttempts) {
+          const likeEmoji = document.createElement('div');
+          likeEmoji.classList.add('thumbsup-emoji');
+          likeEmoji.innerText = '👍';
+          likeEmoji.style.left = `${left}px`;
+          likeEmoji.style.top = `${top}px`;
+          likeBackground.appendChild(likeEmoji);
+        } else {
+          break;
+        }
+      }
+
+      emojiBackground = likeBackground;
+    }
+
+    function removeLikeEmojis() {
+      if (emojiBackground) {
+        emojiBackground.classList.remove('show');
+        setTimeout(() => {
+          emojiBackground.remove();
+          emojiBackground = null;
+        }, 500);
+      }
+    }
+  </script>
+</body>
+</html>
